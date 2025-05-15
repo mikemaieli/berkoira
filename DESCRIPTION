@@ -1,0 +1,10 @@
+Package: berkoira
+Type: Package
+Title: Berklee OIRA Functions
+Version: 0.1.0
+Author: Mike Maieli
+Maintainer: Mike Maieli
+Description: A set of functions relevant to Berklee's OIRA data work.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
