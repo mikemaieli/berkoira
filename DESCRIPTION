@@ -3,7 +3,7 @@ Type: Package
 Title: Berklee OIRA Functions
 Version: 0.1.0
 Author: Mike Maieli
-Maintainer: Mike Maieli
+Maintainer: Mike Maieli <mmaieli@berklee.edu>
 Description: A set of functions relevant to Berklee's OIRA data work.
 License: MIT + file LICENSE
 Encoding: UTF-8
