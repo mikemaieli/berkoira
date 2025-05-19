@@ -12,17 +12,20 @@ adj_term <- function(term) {
   year <- as.integer(substr(term, 1, 4))
   season <- substr(term, 5, 6)
 
+  # Start year depends on the season
   start_year <- dplyr::case_when(
     season == "FA" ~ year,
     season %in% c("SP", "SU") ~ year - 1,
     TRUE ~ NA_integer_
   )
 
-  end_year <- start_year + 1
-  end_year_short <- substr(as.character(end_year), 3, 4)
+  # Short version of the end year (last 2 digits)
+  end_year_short <- substr(as.character(start_year + 1), 3, 4)
 
+  # Academic year in format YYYY-YY
   acad_year <- paste0(start_year, "-", end_year_short)
 
+  # Term number
   term_num <- dplyr::case_when(
     season == "FA" ~ "1",
     season == "SP" ~ "2",
@@ -30,6 +33,7 @@ adj_term <- function(term) {
     TRUE ~ NA_character_
   )
 
+  # Final result
   paste0(acad_year, "_", term_num)
 }
 
