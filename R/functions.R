@@ -12,11 +12,16 @@ adj_term <- function(term) {
   year <- as.integer(substr(term, 1, 4))
   season <- substr(term, 5, 6)
 
-  acad_year <- dplyr::case_when(
-    season == "FA" ~ paste0(year, year + 1),
-    season %in% c("SP", "SU") ~ paste0(year - 1, year),
-    TRUE ~ NA_character_
+  start_year <- dplyr::case_when(
+    season == "FA" ~ year,
+    season %in% c("SP", "SU") ~ year - 1,
+    TRUE ~ NA_integer_
   )
+
+  end_year <- start_year + 1
+  end_year_short <- substr(as.character(end_year), 3, 4)
+
+  acad_year <- paste0(start_year, "-", end_year_short)
 
   term_num <- dplyr::case_when(
     season == "FA" ~ "1",
