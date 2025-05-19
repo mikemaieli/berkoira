@@ -77,9 +77,9 @@ adj_acadyear <- function(term) {
 #' @export
 #'
 #' @examples
-term_index_fixed <- function(term_vec, base_year = 1700, base_season = "FA") {
-  # Season codes: FA = 0, SP = 1, SU = 2
-  season_lookup <- c("FA" = 0, "SP" = 1, "SU" = 2)
+term_index_fixed <- function(term_vec, base_year = 1700, base_season = "SP") {
+  # Season codes: FA = 2, SP = 0, SU = 1
+  season_lookup <- c("FA" = 2, "SP" = 0, "SU" = 1)
 
   # Extract year and season
   year <- as.integer(substr(term_vec, 1, 4))
