@@ -41,21 +41,25 @@ adj_term <- function(term) {
 
 #' Add academic year
 #'
-#' Converts a term like 2018FA to academic year 2018-19
+#' Converts a term like 2018FA or 2024OFA to academic year 2018-19 or 2024-25
 #'
-#' @param term
+#' @param term Character string like "2020FA", "2024OFA", "2025OWI"
 #'
-#' @return
+#' @return Character string representing academic year
 #' @export
 #'
 #' @examples
+#' adj_acadyear("2020FA")   # "2020-21"
+#' adj_acadyear("2024OFA")  # "2024-25"
+#' adj_acadyear("2025OWI")  # "2024-25"
+#' adj_acadyear(c("2025OSP", "2025OSU")) # "2024-25" "2024-25"
 adj_acadyear <- function(term) {
   year <- as.integer(substr(term, 1, 4))
-  season <- substr(term, 5, 6)
+  season <- substr(term, 5, nchar(term))
 
   start_year <- dplyr::case_when(
-    season == "FA" ~ year,
-    season %in% c("SP", "SU") ~ year - 1,
+    season %in% c("FA", "OFA") ~ year,
+    season %in% c("SP", "SU", "OWI", "OSP", "OSU") ~ year - 1,
     TRUE ~ NA_integer_
   )
 
