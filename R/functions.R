@@ -10,30 +10,33 @@
 #' @examples
 adj_term <- function(term) {
   year <- as.integer(substr(term, 1, 4))
-  season <- substr(term, 5, 6)
+  season <- substr(term, 5, nchar(term))
 
-  # Start year depends on the season
+  # Determine start year of academic year
   start_year <- dplyr::case_when(
-    season == "FA" ~ year,
-    season %in% c("SP", "SU") ~ year - 1,
+    season %in% c("FA", "OFA") ~ year,
+    season %in% c("OWI", "SP", "OSP", "SU", "OSU") ~ year - 1,
     TRUE ~ NA_integer_
   )
 
-  # Short version of the end year (last 2 digits)
+  # Short version of end year
   end_year_short <- substr(as.character(start_year + 1), 3, 4)
 
-  # Academic year in format YYYY-YY
+  # Academic year in YYYY-YY format
   acad_year <- paste0(start_year, "-", end_year_short)
 
-  # Term number
+  # Term number according to desired order
   term_num <- dplyr::case_when(
-    season == "FA" ~ "1",
-    season == "SP" ~ "2",
-    season == "SU" ~ "3",
+    season == "FA"  ~ "1",
+    season == "OFA" ~ "2",
+    season == "OWI" ~ "3",
+    season == "SP"  ~ "4",
+    season == "OSP" ~ "5",
+    season == "SU"  ~ "6",
+    season == "OSU" ~ "7",
     TRUE ~ NA_character_
   )
 
-  # Final result
   paste0(acad_year, "_", term_num)
 }
 
